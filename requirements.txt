@@ -1,7 +1,9 @@
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
-pandas
-numpy
-scikit-learn
-torch>=2.5.0   # ✅ change from 2.1.0 to >=2.5.0 (needed for Python 3.12+)
+
 python-multipart==0.0.6
+
+torch==2.5.1
+scikit-learn==1.5.2
+numpy==1.26.4
+pandas==2.2.3

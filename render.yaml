@@ -1,9 +1,10 @@
 services:
   - type: web
-    name: healthcare-api
+    name: healthcare-deterioration-api
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn app:app --host 0.0.0.0 --port 10000"
+    plan: free # or standard, depending on your choice
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10 # ✅ safer than 3.12, since torch 2.5+ works well with 3.10
+        value: 3.11

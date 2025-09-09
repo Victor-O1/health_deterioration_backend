@@ -495,7 +495,7 @@ class HealthcareDeteriorationPredictor:
     
     def load_model(self, filepath, input_size):
         """Load a pre-trained model"""
-        checkpoint = torch.load(filepath, map_location=self.device)
+        checkpoint = torch.load(filepath, map_location=self.device, weights_only=False)
         
         # Restore preprocessing objects
         self.scaler = checkpoint['scaler']
@@ -529,7 +529,7 @@ predictor = HealthcareDeteriorationPredictor(sequence_length=60)
 
 # Load the trained model checkpoint
 # NOTE: input_size must match your training feature dimension
-checkpoint = torch.load("healthcare_deterioration_pytorch_model.pth", map_location=device)
+checkpoint = torch.load("healthcare_deterioration_pytorch_model.pth", map_location=device, weights_only=False)
 input_size = len(checkpoint['feature_columns'])
 predictor.load_model("healthcare_deterioration_pytorch_model.pth", input_size=input_size)
 
