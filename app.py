@@ -19,19 +19,19 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(title="Healthcare Deterioration Prediction API")
 
 # Allowed origins (adjust if you want to restrict)
-origins = [
-    "*",   # allows all origins (not secure for prod)
-    # "http://localhost:3000",  # example: your React frontend
-    # "https://yourfrontend.com"
-]
+# origins = [
+#     "*",   # allows all origins (not secure for prod)
+#     # "http://localhost:3000",  # example: your React frontend
+#     # "https://yourfrontend.com"
+# ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,          # list of allowed origins
-    allow_credentials=True,
-    allow_methods=["*"],            # allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],            # allow all headers
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,          # list of allowed origins
+#     allow_credentials=True,
+#     allow_methods=["*"],            # allow all HTTP methods (GET, POST, etc.)
+#     allow_headers=["*"],            # allow all headers
+# )
 
 
 @app.get("/")
@@ -472,9 +472,13 @@ class HealthcareDeteriorationPredictor:
         # Format results
         results = {}
         for target_name in self.target_columns:
-            results[target_name] = outputs[target_name].squeeze().cpu().numpy()
+            preds = outputs[target_name].squeeze().cpu().numpy()
+            if preds.ndim == 0:  # scalar → wrap it
+                preds = np.array([preds])
+            results[target_name] = preds
         
         return pd.DataFrame(results)
+
     
     def save_model(self, filepath):
         """Save the trained model"""
