@@ -18,8 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Healthcare Deterioration Prediction API")
 
-# Allowed origins (adjust if you want to restrict)
-from fastapi.middleware.cors import CORSMiddleware
+
 
 app.add_middleware(
     CORSMiddleware,
